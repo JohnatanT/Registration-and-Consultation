@@ -1,0 +1,79 @@
+#campo_busca h2{
+	text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #59bbd6;
+}
+
+#Pesquisar{
+	text-align: center;
+	margin-top: 20px;
+}
+#campo_busca img{
+	margin: 10px auto;
+}
+
+#Pesquisar .botao_pesquisa{
+	background-color: #337ab7;
+    color: #fff;
+    border: none;
+    padding: 6px 6px;
+    text-transform: uppercase;
+    box-shadow: none;
+     outline: none;
+}
+#Pesquisar .campo_pesquisa{
+	box-shadow: none;
+    color: #fff;
+    outline: none;
+    background-color: #59bbd6;
+    border: none;
+    padding: 7px 6px;
+}
+
+#Pesquisar .campo_pesquisa::-moz-placeholder{
+	color: #fff;
+}
+
+#Pesquisar .campo_pesquisa::-webkit-input-placeholder{
+	color: #fff;
+}
+
+#Pesquisar .campo_pesquisa:-ms-input-placeholder{
+	color: #fff;
+}
+
+.resultado h2{
+	padding-top: 40px;
+    padding-left: 15px;
+    border-bottom: 1px solid #000;
+}
+
+#myModal .modal-content .modal-body .formulario .form-control{
+	border-radius: 0;
+    margin: 10px;
+    background-color: #e0e7eb;
+    border: none;
+    outline: none;
+    outline: none;
+	box-shadow: none;
+
+}
+#myModal .modal-content .modal-body .formulario button{
+	background-color: #085477;
+    color: #fff;
+    border: none;
+    padding: 5px 40px;
+    text-align: center;
+    margin-left: 25px;
+}
+#myModal .modal-content .modal-header .modal-title{
+	color: #085477;
+}
+.jumbotron{
+    background-color: #64b5f6;
+    color: #fff;   
+}
+.jumbotron button{
+	border-radius: 0;
+}
