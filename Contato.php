@@ -35,10 +35,19 @@ class Contato{
 		$stmt->execute();
 	}
 	//Listagem de dados
-	public function list(){
-		$sql = "SELECT FROM {$this->user->getTabela()}";
-		$query = $this->db->query($sql);
-		return $query->fatch_all(MYSQLI_ASSOC);
+	public function find($nome){
+		$stmt = $this->db->stmt_init();
+		$likeVar = "%" . $nome . "%";
+		$stmt->prepare("SELECT * FROM {$this->user->getTabela()} WHERE CONCAT_WS(' ', name, email, telefone) LIKE ?");
+		$stmt->bind_param("s",$likeVar);
+		$stmt->execute();
+		$stmt->bind_result($id,$name,$email,$telefone);
+		
+		$arr =  array();
+		while ($stmt->fetch()) {
+        	$arr[] = array("id" => $id,"nome" => $name,"email" => $email, "telefone" => $telefone);
+    	}
+    	return $arr;
 	}
 
 }

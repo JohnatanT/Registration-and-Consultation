@@ -20,7 +20,9 @@ try {
 $user = new User(); 
 $contato = new Contato($mysqli,$user);
 
+
 //Validação Nome
+
 $nome = $_POST['nome'];
 if(empty($nome)){
 	throw new Exception("Error! Nome em branco.");
@@ -39,10 +41,11 @@ if(empty($telefone)){
 //Enviando dados
 $contato->insert($nome,$email,$telefone);
 //Mensagem de envio dos dados com reload da página 
-echo "<script>window.location='index.php';alert('$nome, seus dados foram enviados com sucesso!');</script>";
+
+echo "<script>window.location='index.php';alert('$nome, sua mensagem foi enviada com sucesso!');</script>";
 
 } catch (Exception $e) {
-	echo "<script> alert('".$e->getMessage()."') </script>";
+	echo "<script> alert('".$e->getMessage()."');</script>";
 }
 
 

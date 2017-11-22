@@ -25,10 +25,12 @@
           <h1>Bem vindo!</h1>
           <p>Caso deseje se cadastrar clique no botão logo abaixo para realizar seu cadastro. Se deseja apenas fazer uma consulta mais abaixo há um campo em que você pode fazer consultas.</p>
           <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-            Cadastrar <i class="fa fa-floppy-o" aria-hidden="true"></i>
+            Cadastrar <i class="fa fa-plus-square" aria-hidden="true"></i>
           </button>
         </div>
     </div>
+
+
 
     <!--Modal de Cadastro -->
     <!-- Modal -->
@@ -43,10 +45,10 @@
             </div>
             <div class="modal-body">
               <div class="formulario">
-                <form name="contato" method="POST" action="conexao.php">
+                <form name="contato" method="POST" action="conexao.php" onSubmit="return valida();">
                   <input type="hidden" name="validacao">
                   <div class="col-md-12">
-                    <input type="text" name="nome"  required="required" class="form-control azul" placeholder="Nome">
+                    <input type="text" name="nome" class="form-control azul" placeholder="Nome" required="required">
                   </div>
                   <div class="col-md-12">
                     <input type="email" name="email" required="required" class="form-control azul" placeholder="E-mail">
@@ -72,14 +74,28 @@
         <div id="Pesquisar">
           <h3>Infome o nome: </h3>
           <input type="text" name="txtnome" id="txtnome" placeholder="Pesquisar..." class="campo_pesquisa"> 
-          <input type="button" name="btnPesquisar" value="Pesquisar" class="botao_pesquisa" data-toggle="tooltip" data-placement="bottom" title="Pesquise o nome da Pessoa">
+          <input type="button" id="botao" name="btnPesquisar" value="Pesquisar" class="botao_pesquisa" data-toggle="tooltip" data-placement="bottom" title="Pesquise o nome da Pessoa">
         </div>
       </div>
       <!-- Resultado da Pesquisa -->
       <div class="row">
         <div class="resultado">
           <h2>Resultado da Pesquisa:</h2>
-          <div id="resultado"></div>
+          <div id="resultado">
+            <table border="1" class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Nome</th>
+                  <th>E-mail</th>
+                  <th>Telefone</th>
+                </tr>
+              </thead>
+              <tbody id="tabela">
+              </tbody>
+            </table>
+          </div>
+          
         </div>
       </div>
 
