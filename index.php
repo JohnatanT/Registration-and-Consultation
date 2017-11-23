@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- As 3 meta tags acima *devem* vir em primeiro lugar dentro do `head`; qualquer outro conteúdo deve vir *após* essas tags -->
-    <title>Cadastro</title>
+    <title>Cadastro&Consulta</title>
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
@@ -20,17 +20,20 @@
   <body>
     <div class="container-fluid">
       <!-- Mensagem de Boas Vindas -->
+
+      <!-- Gif de carregamento -->
+      <div id="preload"></div>
+
       <div class="row">
         <div class="jumbotron">
-          <h1>Bem vindo!</h1>
-          <p>Caso deseje se cadastrar clique no botão logo abaixo para realizar seu cadastro. Se deseja apenas fazer uma consulta mais abaixo há um campo em que você pode fazer consultas.</p>
+          <h1>Bem vindo! <i class="fa fa-thumbs-o-up" aria-hidden="true"></i></h1>
+          <p><i class="fa fa-address-card-o" aria-hidden="true"></i> Caso deseje se cadastrar clique no botão logo abaixo para realizar seu cadastro.<br>
+          <i class="fa fa-hourglass-end" aria-hidden="true"></i> Se deseja apenas fazer uma consulta mais abaixo há um campo em que você pode faze-lo.</p>
           <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
             Cadastrar <i class="fa fa-plus-square" aria-hidden="true"></i>
           </button>
         </div>
     </div>
-
-
 
     <!--Modal de Cadastro -->
     <!-- Modal -->
@@ -45,18 +48,18 @@
             </div>
             <div class="modal-body">
               <div class="formulario">
-                <form name="contato" method="POST" action="conexao.php" onSubmit="return valida();">
+                <form name="contato" method="POST">
                   <input type="hidden" name="validacao">
                   <div class="col-md-12">
-                    <input type="text" name="nome" class="form-control azul" placeholder="Nome" required="required">
+                    <input type="text" name="nome" class="form-control azul" placeholder="Nome" required="required" id="nome">
                   </div>
                   <div class="col-md-12">
-                    <input type="email" name="email" required="required" class="form-control azul" placeholder="E-mail">
+                    <input type="email" name="email" required="required" class="form-control azul" placeholder="E-mail" id="email">
                   </div>
                   <div class="col-md-12">
-                    <input type="tel" name="telefone" class="form-control azul" placeholder="Telefone">
+                    <input type="tel" name="telefone" class="form-control azul" placeholder="Telefone" id="telefone">
                   </div>
-                  <button type="submit">Enviar</button>
+                  <button type="button" id="submit">Enviar</button>
                 </form>
               </div>
             </div>
@@ -67,20 +70,25 @@
         </div>
       </div>
 
+      <div class="alert alert-success alert-dismissable" id="alert">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Successo!</strong> Cadastro realizado com sucesso.
+      </div>
+
       <!-- Campo de Busca -->
       <div class="row" id="campo_busca">
         <img src="img/icons8-search-50.png" class="img-responsive">
         <h2>Pesquisar Contato:</h2>
         <div id="Pesquisar">
-          <h3>Infome o nome: </h3>
+          <h3>Infome o nome, email ou telefone </h3>
           <input type="text" name="txtnome" id="txtnome" placeholder="Pesquisar..." class="campo_pesquisa"> 
-          <input type="button" id="botao" name="btnPesquisar" value="Pesquisar" class="botao_pesquisa" data-toggle="tooltip" data-placement="bottom" title="Pesquise o nome da Pessoa">
+          <input type="button" id="botao" name="btnPesquisar" value="Pesquisar" class="botao_pesquisa" data-toggle="tooltip" data-placement="bottom" title="Caso queira ver todos, apenas clique aqui com o campo em branco">
         </div>
       </div>
       <!-- Resultado da Pesquisa -->
       <div class="row">
         <div class="resultado">
-          <h2>Resultado da Pesquisa:</h2>
+          <h2>Resultado da Pesquisa: <i class="fa fa-lightbulb-o" aria-hidden="true"></i></h2>
           <div id="resultado">
             <table border="1" class="table">
               <thead>
@@ -89,14 +97,15 @@
                   <th>Nome</th>
                   <th>E-mail</th>
                   <th>Telefone</th>
+                  <th>Excluir Dados</th>
+                  <th>Update dos Dados</th>
                 </tr>
               </thead>
               <tbody id="tabela">
               </tbody>
             </table>
           </div>
-          
-        </div>
+        </div><!-- resultado -->
       </div>
 
 

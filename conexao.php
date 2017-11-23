@@ -17,35 +17,46 @@ if(mysqli_connect_errno()){
 }
 
 try {
-$user = new User(); 
-$contato = new Contato($mysqli,$user);
+	//Instanciando minhas classes
+	$user = new User(); 
+	$contato = new Contato($mysqli,$user);
 
+	#Verificação de Segurança
 
-//Validação Nome
+	/* Nome */
+	$nome = $_POST['nome'];
+	if(empty($nome)){//Verifica de está vázio
+		throw new Exception("Nome Vazio");
+	}elseif (strlen($nome) > 100) {//Verificação do tamanho para evitar Spans
+		throw new Exception("Nome muito grande, tente abreviar.");
+	}
 
-$nome = $_POST['nome'];
-if(empty($nome)){
-	throw new Exception("Error! Nome em branco.");
-}
-//Validação E-mail
-$email = $_POST['email'];
-if(empty($email)){
-	throw new Exception("Error! Email em branco.");
-}
-//Validação Telefone
-$telefone = $_POST['telefone'];
-if(empty($telefone)){
-	throw new Exception("Error! Telefone em branco.");
-}
+	/* E-mail */
+	$email = $_POST['email'];
+	$email = filter_var($email, FILTER_SANITIZE_EMAIL);
+	if(empty($email)){//Verifica de está vázio
+		throw new Exception("Email Vazio");
+		
+	}elseif(strlen($email) > 100){//Verificação do tamanho para evitar Spans
+		throw new Exception("Email muito grande, ele realmente existe?");
+	}
+
+	/* Telefone */
+	$telefone = $_POST['telefone'];
+	$telefone = filter_var($telefone, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_HIGH);
+	if(empty($telefone)){//Verifica de está vázio
+		throw new Exception("Telefone Vazio");
+	}elseif (strlen($telefone) > 100) {//Verificação do tamanho para evitar Spans
+		throw new Exception("Nome muito grande, tente abreviar.");
+	}
 
 //Enviando dados
-$contato->insert($nome,$email,$telefone);
-//Mensagem de envio dos dados com reload da página 
-
-echo "<script>window.location='index.php';alert('$nome, sua mensagem foi enviada com sucesso!');</script>";
+$env = $contato->insert($nome,$email,$telefone);
+echo json_encode($env);
 
 } catch (Exception $e) {
-	echo "<script> alert('".$e->getMessage()."');</script>";
+	echo "<script> alert('".$e->getMessage()."');</script>";//Mostra Mensagem de erro
+	echo "<script>window.location='index.php';</script>";//Retorna a página
 }
 
 
