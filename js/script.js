@@ -8,7 +8,10 @@ $(document).ready(function(){
   setTimeout('$("#preload").fadeOut(100)', 1500);
 });
 
-var valorUp = null;
+var valorUp = null; //Variavel Global usada na linha 76
+
+var lista = [];//Array Global usado na linha 62
+
 //Cadastro de dados
 $("#submit").click(function(){
   //Recebendo valores
@@ -55,6 +58,9 @@ function busca(nome){
         for(var i=0;data.length>i;i++){
           //Adicionando registros retornados na tabela
           $('#tabela').append('<tr data-id="'+data[i].id+'"><td>'+data[i].id+'</td><td>'+data[i].nome+'</td><td>'+data[i].email+'</td><td>'+data[i].telefone+'</td><td><button type="button" data-toggle="modal" data-target="#confirm" class="btn btn-danger excluir" value="'+data[i].id+'">Excluir <i class="fa fa-times" aria-hidden="true"></i></button></td><td><button type="button" class="btn btn-success editar" data-toggle="modal" data-target="#myModalUp" value="'+data[i].id+'">Editar <i class="fa fa-pencil" aria-hidden="true"></i></button></td></tr>');
+          //Array com objeto dos valores
+          lista[data[i].id] = {id: data[i].id ,nome : data[i].nome,email : data[i].email, telefone : data[i].telefone};
+          console.log(lista[data[i].id]);
         }
         //Excluir a tabela
         $(".excluir").click(function(){ 
@@ -65,9 +71,18 @@ function busca(nome){
           });
         }); 
 
+
         //Editar tabela
         $(".editar").click(function(){ 
           valorUp = $(this).val();//Recupera o ID
+          //Recebendo valores da tabela tabela
+          var _nome = lista[valorUp].nome;
+          var _email = lista[valorUp].email;
+          var _telefone = lista[valorUp].telefone;
+          //Passando os valores para os inputs da Modal de Editar
+          document.getElementById('nomeUp').value = _nome;
+          document.getElementById('emailUp').value = _email;
+          document.getElementById('telefoneUp').value = _telefone;
         }); 
         $("#submitUp").click(function(){
             //Recebendo valores
@@ -75,6 +90,7 @@ function busca(nome){
             var emailUp = document.getElementById('emailUp').value;
             var telefoneUp = document.getElementById('telefoneUp').value;
             update(valorUp,nomeUp,emailUp,telefoneUp)//Mandando valores para a função Update
+
           });
       },
       error: function (data) {//Caso aconteça algum erro
@@ -126,6 +142,64 @@ function update(_id,_nome,_email,_telefone){
    });
 }
 
+
+//Login
+/*
+$("#submit_login").click(function(){
+  //Recebendo valores
+  var email = document.getElementById('email_login').value;
+  var senha = document.getElementById('senha_login').value;
+  logar(email,senha)
+});
+
+function logar(email,senha){
+   $.ajax({
+      type: "POST",//Tipo de envio/busca
+      url: 'verificar.php',//Arquivo que irá buscar
+      dataType: 'json',
+      data:{'email': email,'senha': senha},//Passando a variavel nome para o parametro acao que será recebido no PHP
+      success: function (data) {// resposta do php com sucesso
+
+        if(email == data.email && senha == data.senha){
+          window.location.replace("update.php");
+        }
+        
+      },
+      error: function (data) {//Caso aconteça erro
+         alert(data.responseText);
+      }
+   });
+}
+*/
+
+
+//Cadastro as infomações de Login
+$("#cadastro_login").click(function(){
+  //Recebendo valores
+  var nome = document.getElementById('nome_cad').value;
+  var email = document.getElementById('email_cad').value;
+  var senha = document.getElementById('senha_cad').value;
+  cadastrar(nome,email,senha)
+});
+//Função que envia os dados 
+function cadastrar(_nome,_email,_senha){
+   $.ajax({
+      type: "POST",//Tipo de envio/busca
+      url: 'cadastro.php',//Arquivo que irá buscar
+      dataType: 'json',
+      data:{'nome': _nome,'email': _email,'senha': _senha},//Passando a variavel nome para o parametro acao que será recebido no PHP
+      success: function (data) {// resposta do php com sucesso
+        $('.modal').modal('hide');//Esconde a Modal
+        //Aparece o Alert
+        $('#alert_cad').css("display", "block");
+        $('#alert_cad').css("z-index", "9999999");
+        setTimeout('$("#alert_cad").fadeOut(100)', 4000)//Alert Some depois de um tempo
+      },
+      error: function (data) {//Caso aconteça erro
+         alert(data.responseText);
+      }
+   });
+}
 
 
 

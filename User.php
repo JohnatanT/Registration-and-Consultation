@@ -7,6 +7,7 @@ class User{
 	private $nome;
 	private $email;
 	private $telefone;
+	private $senha;
 
 	public function getTabela(){
 		return $this->tabela;
@@ -35,6 +36,15 @@ class User{
 	public function setEmail($email){
 		$this->email = $email;
 	}
+
+	//Nome
+	public function getSenha(){
+		return $this->senha;
+	}
+	public function setSenha($senha){
+		$this->senha = $senha;
+	}
+
 
 	//Telefone
 	public function getTelefone(){

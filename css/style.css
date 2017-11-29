@@ -66,7 +66,7 @@
     color: #f79804;
 }
 
-#myModal .modal-content .modal-body .formulario .form-control,#myModalUp .modal-content .modal-body .formulario .form-control{
+#myModal .modal-content .modal-body .formulario .form-control,#myModalUp .modal-content .modal-body .formulario .form-control,#modalCad .modal-content .modal-body .formulario .form-control{
 	border-radius: 0;
     margin: 10px;
     background-color: #e0e7eb;
@@ -76,7 +76,7 @@
 	box-shadow: none;
 
 }
-#myModal .modal-content .modal-body .formulario button,#myModalUp .modal-content .modal-body .formulario button{
+#myModal .modal-content .modal-body .formulario button,#myModalUp .modal-content .modal-body .formulario button,#modalCad  .modal-content .modal-body .formulario button{
 	background-color: #085477;
     color: #fff;
     border: none;
@@ -84,7 +84,7 @@
     text-align: center;
     margin-left: 25px;
 }
-#myModal .modal-content .modal-header .modal-title,#myModalUp .modal-content .modal-header .modal-title{
+#myModal .modal-content .modal-header .modal-title,#myModalUp .modal-content .modal-header .modal-title,#modalCad .modal-content .modal-header .modal-title{
 	color: #085477;
 }
 .jumbotron{
@@ -97,7 +97,7 @@
 }
 
 /* Alerta de Sucesso do Cadastro */
-#alert,#alert_ex,#alert_up{
+#alert,#alert_ex,#alert_up,#alert_cad{
   display: none;
   position: fixed;
   top: 10px;
@@ -112,4 +112,69 @@
 
 .modal .modal-content .modal-header .modal-title{
   text-transform: uppercase;
+}
+
+/* Pagina de Login */
+
+.bloco-login{
+  width: 40%;
+  margin: 0 auto;
+}
+
+.bloco-login img{
+  margin: 20px auto;
+}
+.bloco-login h1{
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.bloco-login .form-control{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-color: #006000;
+  color: #006000;
+}
+.bloco-login .formulario button{
+  margin-top: 10px;
+  margin-left: 15px;
+}
+.btn-green{
+  background:green;
+  color:#fff;
+  box-shadow:0 5px 0 #006000;
+  outline: none !important;
+}
+
+.btn-green:hover{
+  background:#006000;
+  box-shadow:0 5px 0 #003f00;
+  color: #fff;
+}
+.btn-green:active{
+  position:relative;
+  top:5px;
+  box-shadow: none !important;
+ color: #fff;
+}
+
+.bloco-login .formulario .check{
+    display: inline-block;
+    margin-left: 15px;
+    color: #003f00;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.bloco-login .formulario .form-control::-moz-placeholder{
+  color: #000;
+}
+
+.bloco-login .formulario .form-control::-webkit-input-placeholder{
+  color: #000;
+}
+
+.bloco-login .formulario .form-control:-ms-input-placeholder{
+  color: #000;
 }

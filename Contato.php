@@ -2,6 +2,7 @@
 
 require_once 'User.php';
 
+
 class Contato{
 	private $db;
 	private $user;
@@ -75,5 +76,23 @@ class Contato{
 		$stmt->bind_param("sssi",$nome,$email,$telefone,$id);//Passando os valores
 		$stmt->execute();
 	}
+
+	//Cadastro de Dados para Login
+	public function insert_log($nome,$email,$senha){
+		$stmt = $this->db->stmt_init();
+		$stmt->prepare("INSERT INTO logar(nome,email,senha) VALUES(?,?,?)");
+
+		$this->user->setNome($nome);
+		$this->user->setEmail($email);
+		$this->user->setSenha($senha);
+
+		$nome =  $this->user->getNome();
+		$email =  $this->user->getEmail();
+		$senha =  $this->user->getSenha();
+
+		$stmt->bind_param("sss",$nome,$email,$senha);
+		$stmt->execute();
+	}
+
 
 }
