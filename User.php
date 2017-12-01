@@ -9,6 +9,7 @@ class User{
 	private $telefone;
 	private $senha;
 
+	//Tabela
 	public function getTabela(){
 		return $this->tabela;
 	}

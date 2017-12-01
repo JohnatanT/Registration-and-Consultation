@@ -87,17 +87,29 @@
 #myModal .modal-content .modal-header .modal-title,#myModalUp .modal-content .modal-header .modal-title,#modalCad .modal-content .modal-header .modal-title{
 	color: #085477;
 }
+
+#painel{
+    background-image: url('../img/bg-clientes.jpg');
+    background-attachment: fixed;
+}
 .jumbotron{
-    background-color: #64b5f6;
+    background-color: transparent;
     color: #fff; 
-    border-radius: 0 !important;  
+    border-radius: 0 !important; 
+    padding-bottom: 232px; 
+
+}
+.jumbotron h1{
+  padding-top: 132px;
+  color: #4be6d8;
 }
 .jumbotron button{
 	border-radius: 0;
 }
 
 /* Alerta de Sucesso do Cadastro */
-#alert,#alert_ex,#alert_up,#alert_cad{
+
+#alert,#alert_ex,#alert_up,#alert_cad,#alert_log,#alert_exis,#alert_pass{
   display: none;
   position: fixed;
   top: 10px;
@@ -136,7 +148,7 @@
   border-color: #006000;
   color: #006000;
 }
-.bloco-login .formulario button{
+.bloco-login .formulario button, #submit_login{
   margin-top: 10px;
   margin-left: 15px;
 }
@@ -159,14 +171,6 @@
  color: #fff;
 }
 
-.bloco-login .formulario .check{
-    display: inline-block;
-    margin-left: 15px;
-    color: #003f00;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
 .bloco-login .formulario .form-control::-moz-placeholder{
   color: #000;
 }
@@ -177,4 +181,22 @@
 
 .bloco-login .formulario .form-control:-ms-input-placeholder{
   color: #000;
+}
+
+/* Botão de Logout */
+.logout{
+  position: fixed;
+  top: 20px;
+  right: 20px;
+}
+
+.logout a{
+    text-decoration: none;
+    background-color: #f53d3d;
+    color: #fff;
+    text-transform: uppercase;
+    padding: 10px;
+}
+.logout a i{
+  padding: 10px;
 }

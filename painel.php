@@ -1,17 +1,22 @@
- <?php require_once 'header.php' ?>
- 
-      <div class="row">
-        <div class="jumbotron">
-          <h1>Bem vindo <i class="fa fa-user-circle-o" aria-hidden="true"></i></h1>
-          <p><i class="fa fa-address-card-o" aria-hidden="true"></i> Caso deseje se cadastrar clique no botão logo abaixo para realizar seu cadastro.<br>
-          <i class="fa fa-hourglass-end" aria-hidden="true"></i> Se deseja apenas fazer uma consulta mais abaixo há um campo em que você pode faze-lo.</p>
-          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-            Cadastrar <i class="fa fa-cloud-upload" aria-hidden="true"></i> 
-          </button>
-        </div>
+ <?php 
+  session_start();
+  require_once 'header.php';
+
+  //Caso esteja logado
+  if(isset($_SESSION["nome_usuario"])){
+
+ ?>
+    <div class="row" id="painel">
+      <div class="jumbotron">
+        <h1>Bem vindo <?php echo $_SESSION["nome_usuario"]; ?> <i class="fa fa-user-circle-o" aria-hidden="true"></i></h1>
+        <p><i class="fa fa-address-card-o" aria-hidden="true"></i> Caso deseje fazer um cadastro clique no botão logo abaixo para realizar seu cadastro.<br>
+        <i class="fa fa-hourglass-end" aria-hidden="true"></i> Se deseja apenas fazer uma consulta mais abaixo há um campo em que você pode faze-lo.</p>
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+          Cadastrar <i class="fa fa-cloud-upload" aria-hidden="true"></i> 
+        </button>
+      </div>
     </div>
 
-    <!--Modal de Cadastro -->
     <!-- Modal Cadastro-->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -80,17 +85,14 @@
 
       <!-- Alerta de Sucesso no Cadastro -->
       <div class="alert alert-success alert-dismissable fade in" id="alert">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Successo!</strong> Cadastro realizado com exito <i class="fa fa-sign-in" aria-hidden="true"></i>.
       </div>
       <!-- Alerta de Sucesso ao Excluir o Cadastro -->
       <div class="alert alert-danger alert-dismissable fade in" id="alert_ex">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Successo!</strong> Cadastro excluido com exito <i class="fa fa-trash" aria-hidden="true"></i>.
       </div>
       <!-- Alerta de Sucesso no Update -->
       <div class="alert alert-success alert-dismissable fade in" id="alert_up">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Successo!</strong> Update realizado com exito <i class="fa fa-sign-in" aria-hidden="true"></i>.
       </div>
 
@@ -100,7 +102,7 @@
         <img src="img/icons8-search-50.png" class="img-responsive">
         <h2>Pesquisar Contato:</h2>
         <div id="Pesquisar">
-          <h3>Infome o nome, email ou telefone </h3>
+          <h3>Busque pelo nome, email ou telefone </h3>
           <input type="text" name="txtnome" id="txtnome" placeholder="Pesquisar..." class="campo_pesquisa"> 
           <input type="button" id="botao" name="btnPesquisar" value="Pesquisar" class="botao_pesquisa" data-toggle="tooltip" data-placement="bottom" title="Caso queira ver todos, apenas clique aqui com o campo em branco">
         </div>
@@ -130,7 +132,6 @@
         </div>
       </div>
 
-
   <!-- Modal de Excluir-->
   <div class="modal fade" id="confirm" role="dialog">
     <div class="modal-dialog modal-sm">
@@ -150,4 +151,15 @@
     </div>
   </div>
 
-  <?php require_once 'footer.php' ?>
+  <!-- Logout -->
+  <div class="logout">
+    <a href="logout.php">Sair <i class="fa fa-power-off" aria-hidden="true"></i></a>
+  </div>
+
+  <?php 
+    }else{
+      header("Location:index.php"); //Se não estiver logado redireciona para a página de Login
+    }
+
+    require_once 'footer.php' 
+  ?>

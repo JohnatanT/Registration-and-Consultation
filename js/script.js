@@ -5,7 +5,7 @@ $(function () {
 
  //Gif de carregamento 
 $(document).ready(function(){
-  setTimeout('$("#preload").fadeOut(100)', 1500);
+  setTimeout('$("#preload").fadeOut(100)', 2000);
 });
 
 var valorUp = null; //Variavel Global usada na linha 76
@@ -30,9 +30,9 @@ function enviar(_nome,_email,_telefone){
       success: function (data) {// resposta do php com sucesso
         $('.modal').modal('hide');//Esconde a Modal
         //Aparece o Alert
-        $('#alert').css("display", "block");
+        $('#alert').fadeIn();
         $('#alert').css("z-index", "9999999");
-        setTimeout('$("#alert").fadeOut(100)', 4000)//Alert Some depois de um tempo
+        setTimeout('$("#alert").fadeOut(100)', 2000)//Alert Some depois de um tempo
       },
       error: function (data) {//Caso aconteça erro
          alert(data.responseText);
@@ -59,8 +59,7 @@ function busca(nome){
           //Adicionando registros retornados na tabela
           $('#tabela').append('<tr data-id="'+data[i].id+'"><td>'+data[i].id+'</td><td>'+data[i].nome+'</td><td>'+data[i].email+'</td><td>'+data[i].telefone+'</td><td><button type="button" data-toggle="modal" data-target="#confirm" class="btn btn-danger excluir" value="'+data[i].id+'">Excluir <i class="fa fa-times" aria-hidden="true"></i></button></td><td><button type="button" class="btn btn-success editar" data-toggle="modal" data-target="#myModalUp" value="'+data[i].id+'">Editar <i class="fa fa-pencil" aria-hidden="true"></i></button></td></tr>');
           //Array com objeto dos valores
-          lista[data[i].id] = {id: data[i].id ,nome : data[i].nome,email : data[i].email, telefone : data[i].telefone};
-          console.log(lista[data[i].id]);
+          lista[data[i].id] = {id: data[i].id , nome : data[i].nome, email : data[i].email, telefone : data[i].telefone};
         }
         //Excluir a tabela
         $(".excluir").click(function(){ 
@@ -70,7 +69,6 @@ function busca(nome){
             excluir(valor);//Passando o Id da linha para a função Excluir
           });
         }); 
-
 
         //Editar tabela
         $(".editar").click(function(){ 
@@ -110,9 +108,9 @@ function excluir(id){
         // resposta do php
         $('.modal').modal('hide');//Esconde a Modal
         //Aparece o Alert
-        $('#alert_ex').css("display", "block");
+        $('#alert_ex').fadeIn();
         $('#alert_ex').css("z-index", "9999999");
-        setTimeout('$("#alert_ex").fadeOut(100)', 4000)//Alert Some depois de um tempo
+        setTimeout('$("#alert_ex").fadeOut(100)', 2000)//Alert Some depois de um tempo
         
       },
       error: function (data) {//Caso aconteça erro
@@ -132,9 +130,9 @@ function update(_id,_nome,_email,_telefone){
         // resposta do php
             $('.modal').modal('hide');//Esconde a Modal
             //Aparece o Alert
-            $('#alert_up').css("display", "block");
+            $('#alert_up').fadeIn();
             $('#alert_up').css("z-index", "9999999");
-            setTimeout('$("#alert_up").fadeOut(100)', 4000)//Alert Some depois de um tempo
+            setTimeout('$("#alert_up").fadeOut(100)', 2000)//Alert Some depois de um tempo
       },
       error: function (data) {//Caso aconteça erro
          alert(data.responseText);
@@ -142,9 +140,7 @@ function update(_id,_nome,_email,_telefone){
    });
 }
 
-
 //Login
-/*
 $("#submit_login").click(function(){
   //Recebendo valores
   var email = document.getElementById('email_login').value;
@@ -155,23 +151,28 @@ $("#submit_login").click(function(){
 function logar(email,senha){
    $.ajax({
       type: "POST",//Tipo de envio/busca
-      url: 'verificar.php',//Arquivo que irá buscar
+      url: 'login.php',//Arquivo que irá buscar
       dataType: 'json',
       data:{'email': email,'senha': senha},//Passando a variavel nome para o parametro acao que será recebido no PHP
       success: function (data) {// resposta do php com sucesso
 
-        if(email == data.email && senha == data.senha){
-          window.location.replace("update.php");
-        }
-        
+          if(data[0] == false){
+              $('.modal').modal('hide');//Esconde a Modal
+              $('#alert_log').fadeIn();
+              $('#alert_log').css("z-index", "9999999");
+              setTimeout('$("#alert_log").fadeOut(100)', 2000)//Alert Some depois de um tempo
+          }else{
+            window.location.href = "painel.php";
+          }  
+
       },
       error: function (data) {//Caso aconteça erro
-         alert(data.responseText);
+          $('#alert_log').fadeIn();
+          $('#alert_log').css("z-index", "9999999");
+          setTimeout('$("#alert_log").fadeOut(100)', 2000)//Alert Some depois de um tempo
       }
    });
 }
-*/
-
 
 //Cadastro as infomações de Login
 $("#cadastro_login").click(function(){
@@ -179,7 +180,15 @@ $("#cadastro_login").click(function(){
   var nome = document.getElementById('nome_cad').value;
   var email = document.getElementById('email_cad').value;
   var senha = document.getElementById('senha_cad').value;
-  cadastrar(nome,email,senha)
+  var senha2 = document.getElementById('senha_cad2').value;
+  if(senha == senha2){
+    cadastrar(nome,email,senha)
+  }else{
+   $('#alert_pass').fadeIn();
+    $('#alert_pass').css("z-index", "9999999");
+    setTimeout('$("#alert_pass").fadeOut(100)', 2000)
+  }
+  
 });
 //Função que envia os dados 
 function cadastrar(_nome,_email,_senha){
@@ -188,15 +197,26 @@ function cadastrar(_nome,_email,_senha){
       url: 'cadastro.php',//Arquivo que irá buscar
       dataType: 'json',
       data:{'nome': _nome,'email': _email,'senha': _senha},//Passando a variavel nome para o parametro acao que será recebido no PHP
-      success: function (data) {// resposta do php com sucesso
-        $('.modal').modal('hide');//Esconde a Modal
-        //Aparece o Alert
-        $('#alert_cad').css("display", "block");
-        $('#alert_cad').css("z-index", "9999999");
-        setTimeout('$("#alert_cad").fadeOut(100)', 4000)//Alert Some depois de um tempo
+      success: function (data) {
+      //Mensagem se já houver e-mail Cadastrado
+        if(data[0] == false){
+          $('#alert_exis').fadeIn();
+          $('#alert_exis').css("z-index", "9999999");
+          setTimeout('$("#alert_exis").fadeOut(100)', 2000)//Alert Some depois de um tempo
+          console.log('Email já cadastrado');
+        }
+      //Mensagem se não houver e-mail Cadastrado
+        if(data == 1){
+          $('.modal').modal('hide');//Some Modal
+          //Chama o Alert e depois esconde ele
+          $('#alert_cad').fadeIn();
+          $('#alert_cad').css("z-index", "9999999");
+          setTimeout('$("#alert_cad").fadeOut(100)', 2000)
+        }
+
       },
-      error: function (data) {//Caso aconteça erro
-         alert(data.responseText);
+      error: function (xhr, ajaxOptions, thrownError) {//Caso aconteça erro
+         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
       }
    });
 }

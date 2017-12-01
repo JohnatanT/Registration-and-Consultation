@@ -92,7 +92,45 @@ class Contato{
 
 		$stmt->bind_param("sss",$nome,$email,$senha);
 		$stmt->execute();
+    	return true;
 	}
+
+	//Fazer Login
+	public function verifica($email){
+		$stmt = $this->db->stmt_init();
+		$stmt->prepare("SELECT * FROM logar WHERE email = ?");
+
+		$this->user->setEmail($email);
+		$email =  $this->user->getEmail();
+	
+		$stmt->bind_param("s",$email);
+		$stmt->execute();
+
+		$stmt->bind_result($id,$name,$email,$senha);
+		$arr =  array();
+		while ($stmt->fetch()) {//Recebendo todos os valores atraves de um array
+        	$arr[] = array("id" => $id,"nome" => $name,"email" => $email, "senha" => $senha);
+        	//Criando um array associativo
+    	}
+    	return $arr;
+    	//Retonando esse array
+	}
+	
+	//Verifica se existe alguem E-mail Cadastrado
+	public function buscaEmail($email){
+		$stmt = $this->db->stmt_init();
+		$stmt->prepare("SELECT * FROM logar WHERE email = ?");
+
+		$this->user->setEmail($email);
+		$email =  $this->user->getEmail();
+			
+		$stmt->bind_param("s",$email);
+		$stmt->execute();
+
+		$arr = $stmt->fetch();//Recebendo todos os valores atraves de um array
+		return $arr;
+	}
+
 
 
 }

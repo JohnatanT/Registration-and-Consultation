@@ -1,0 +1,4 @@
+Banco de Dados: cadastro
+tabelas: 
+informacoes(id,name,email,telefone)
+logar(id,nome,email,senha)

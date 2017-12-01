@@ -3,22 +3,18 @@
 <!-- Login -->
 <div class="row">
   <div class="bloco-login">
-
     <img src="img/icons8-fingerprint-scan-96.png" class="img-responsive">
     <h1>Faça seu Login</h1>
     <div class="formulario">
       <form name="login" action="" method="POST">
         <div class="col-md-12">
-          <input type="email" name="email_login" required class="form-control" placeholder="E-mail" id="email_login">
+          <input type="email" name="email_login" required="required" class="form-control" placeholder="E-mail" id="email_login">
         </div>
          <div class="col-md-12">
-          <input type="pass" name="pass_login" required class="form-control" placeholder="Senha" id="senha_login">
+          <input type="password" name="pass_login" required="required" class="form-control" placeholder="Senha" id="senha_login">
         </div>
-        <button type="button" id="submit_login" class="btn btn-green">Entrar</button>
+        <input type="button" id="submit_login" class="btn btn-green" value="Entrar">
         <button type="button" id="cad" class="btn btn-green" data-toggle="modal" data-target="#modalCad">Cadastrar</button>  
-        <div class="check">
-          <input type="checkbox" name="verificar" value="sim"> Manter-me conectado.
-        </div>
       </form>
     </div>
   </div>
@@ -46,6 +42,9 @@
                   <div class="col-md-12">
                     <input type="password" name="password" class="form-control azul" placeholder="Senha" id="senha_cad" required>
                   </div>
+                   <div class="col-md-12">
+                    <input type="password" name="password2" class="form-control azul" placeholder="Digite novamente a Senha" id="senha_cad2" required>
+                  </div>
                   <button type="button" id="cadastro_login">Cadastrar <i class="fa fa-check" aria-hidden="true"></i></button>
                 </form>
               </div>
@@ -59,8 +58,22 @@
 
       <!-- Alerta de Sucesso no Cadastro -->
       <div class="alert alert-success alert-dismissable" id="alert_cad">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong>Successo!</strong> Cadastro realizado com exito <i class="fa fa-sign-in" aria-hidden="true"></i>.
+      </div>
+
+      <!-- Alerta de E-mail Existente -->
+      <div class="alert alert-danger alert-dismissable" id="alert_exis">
+        <strong>Atenção!</strong> E-mail já existente.
+      </div>
+
+       <!-- Alerta de Senhas Diferentes -->
+      <div class="alert alert-danger alert-dismissable" id="alert_pass">
+        <strong>Atenção!</strong> Senhas Diferentes.
+      </div>
+
+       <!-- Alerta de Login ou Senha errados -->
+      <div class="alert alert-danger alert-dismissable" id="alert_log">
+        <strong>Opa!</strong> Email ou(e) Senha errado(s).
       </div>
 
 
