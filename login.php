@@ -40,6 +40,7 @@ try {
 			$_SESSION["id_usuario"]= $value["id"]; 
 			$_SESSION["nome_usuario"] = $value['nome'];
 			$_SESSION["email_usuario"] = $value['email'];
+			$_SESSION["senha_user"]= $value["senha"];
 		}else{
 			$retorna1 = false;
 			$lista_retorna = array();

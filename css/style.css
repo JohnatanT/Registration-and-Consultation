@@ -200,3 +200,71 @@
 .logout a i{
   padding: 10px;
 }
+
+/* Página de Admin */
+
+#admin_topo{
+  color: #fff;
+  background-color: #000;
+  text-align: center;
+  padding: 10px;
+}
+
+#admin_topo h2{
+  text-transform: uppercase;
+}
+#progre{
+  width: 80%;
+  margin: 100px auto;
+}
+
+#progre h2{
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#estat{
+  margin-top: 50px;
+}
+
+#estat .info{
+  text-align: center;
+}
+#estat .info h2{
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #2b4d82;
+}
+#estat .info p{
+  font-size: 17px;
+}
+
+#form_est{
+  margin: 0 auto;
+  width: 70%;
+}
+
+#submitEst{
+    border: none;
+    background-color: #000;
+    color: #fff;
+    padding: 8px;
+    text-transform: uppercase;
+    float: left;
+    margin-top: 20px;
+}
+
+#form_est form h2{
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+#form_est form input{
+  width: 380px;
+}
+#form_est form .bloco{
+  padding-top: 30px;
+}
+
+
+

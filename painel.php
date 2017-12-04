@@ -154,6 +154,7 @@
   <!-- Logout -->
   <div class="logout">
     <a href="logout.php">Sair <i class="fa fa-power-off" aria-hidden="true"></i></a>
+    <a href="admin.php">Estatisticas <i class="fa fa-bar-chart" aria-hidden="true"></i></a>
   </div>
 
   <?php 

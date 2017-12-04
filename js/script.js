@@ -69,7 +69,6 @@ function busca(nome){
             excluir(valor);//Passando o Id da linha para a função Excluir
           });
         }); 
-
         //Editar tabela
         $(".editar").click(function(){ 
           valorUp = $(this).val();//Recupera o ID
@@ -88,7 +87,6 @@ function busca(nome){
             var emailUp = document.getElementById('emailUp').value;
             var telefoneUp = document.getElementById('telefoneUp').value;
             update(valorUp,nomeUp,emailUp,telefoneUp)//Mandando valores para a função Update
-
           });
       },
       error: function (data) {//Caso aconteça algum erro
@@ -111,7 +109,6 @@ function excluir(id){
         $('#alert_ex').fadeIn();
         $('#alert_ex').css("z-index", "9999999");
         setTimeout('$("#alert_ex").fadeOut(100)', 2000)//Alert Some depois de um tempo
-        
       },
       error: function (data) {//Caso aconteça erro
          alert(data.responseText);
@@ -155,21 +152,19 @@ function logar(email,senha){
       dataType: 'json',
       data:{'email': email,'senha': senha},//Passando a variavel nome para o parametro acao que será recebido no PHP
       success: function (data) {// resposta do php com sucesso
-
           if(data[0] == false){
-              $('.modal').modal('hide');//Esconde a Modal
-              $('#alert_log').fadeIn();
-              $('#alert_log').css("z-index", "9999999");
-              setTimeout('$("#alert_log").fadeOut(100)', 2000)//Alert Some depois de um tempo
+            $('.modal').modal('hide');//Esconde a Modal
+            $('#alert_log').fadeIn();
+            $('#alert_log').css("z-index", "9999999");
+            setTimeout('$("#alert_log").fadeOut(100)', 2000)//Alert Some depois de um tempo
           }else{
             window.location.href = "painel.php";
           }  
-
       },
       error: function (data) {//Caso aconteça erro
-          $('#alert_log').fadeIn();
-          $('#alert_log').css("z-index", "9999999");
-          setTimeout('$("#alert_log").fadeOut(100)', 2000)//Alert Some depois de um tempo
+        $('#alert_log').fadeIn();
+        $('#alert_log').css("z-index", "9999999");
+        ssetTimeout('$("#alert_log").fadeOut(100)', 2000)//Alert Some depois de um tempo
       }
    });
 }
@@ -185,7 +180,7 @@ $("#cadastro_login").click(function(){
     cadastrar(nome,email,senha)
   }else{
    $('#alert_pass').fadeIn();
-    $('#alert_pass').css("z-index", "9999999");
+  $('#alert_pass').css("z-index", "9999999");
     setTimeout('$("#alert_pass").fadeOut(100)', 2000)
   }
   
@@ -221,5 +216,36 @@ function cadastrar(_nome,_email,_senha){
    });
 }
 
+//Estatistica
+$("#submitEst").click(function(){ // no click do botao recebe os valores
 
+  var numero_aumento = document.getElementById('numero_aumento').value;
+                    
+  var numero_neutro = document.getElementById('numero_neutro').value;
+  
+  var numero_baixo = document.getElementById('numero_baixo').value;
+ 
+  var numero_critico = document.getElementById('numero_critico').value;
+  //Envia os valores para a função
+  estatistica(numero_aumento,numero_neutro,numero_baixo,numero_critico)
+
+});
+
+function estatistica(numero_aumento,numero_neutro,numero_baixo,numero_critico){
+    $.ajax({
+      type: "POST",//Tipo de envio/busca
+      url: 'estatistica.php',//Arquivo que irá buscar
+      dataType: 'json',
+      data:{'numero_aumento': numero_aumento,'numero_neutro': numero_neutro,'numero_baixo': numero_baixo,'numero_critico': numero_critico},//Passando a variavel nome para o parametro acao que será recebido no PHP
+      success: function (data) {
+      alert("Calculos Realizados com Sucesso");
+      window.location.href = "admin.php";
+      },
+      error: function (xhr, ajaxOptions, thrownError) {//Caso aconteça erro
+         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
+   });
+
+
+}
 
