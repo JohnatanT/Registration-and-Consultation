@@ -205,6 +205,8 @@
     color: #fff;
     text-transform: uppercase;
     padding: 10px;
+    outline: none;
+    box-shadow: none;
 }
 .logout a i{
   padding: 10px;
@@ -275,5 +277,17 @@
   padding-top: 30px;
 }
 
+/* Mapa */
 
+.info-mapa h2{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+    margin-top: 40px;
+}
+.info-mapa img{
+  margin: 0 auto; 
+  margin-bottom: 40px;
+}
 

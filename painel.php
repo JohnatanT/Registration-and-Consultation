@@ -159,7 +159,7 @@
       $cargo = $_SESSION["cargo"];
       if($cargo == "Administrador"){
     ?>
-    <a href="#" id="cargo" data-toggle="modal" data-target="#myModalCargo">Cargos</a>
+    <a href="#" id="cargo" data-toggle="modal" data-target="#myModalCargo">Cargos <i class="fa fa-id-card-o" aria-hidden="true"></i></a>
     <?php 
       }
     ?>
@@ -228,7 +228,11 @@
     </style>
 
       <div class="row">
-        <h2>Mapa</h2>
+        <div class="info-mapa">
+          <h2>Mapa</h2>
+          <img src="img/maps.png" class="img-responsive">
+        </div>
+        
         <div id="map"></div>
       </div>
 
