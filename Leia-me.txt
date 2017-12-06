@@ -3,3 +3,4 @@ tabelas:
 1.informacoes(id,name,email,telefone)
 2.logar(id,nome,email,senha)
 3.cargo(id,cargo)
+4.mapa(id,lat,lng,endereco)

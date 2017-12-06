@@ -199,16 +199,16 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myMap">
-                Cadastro de Cargos
+                Cadastro de Coordenadas
               </h4>
             </div>
             <div class="modal-body">
               <div class="formulario">
                 <form name="contato" action="" method="POST">
                   <div class="col-md-12">
-                    <input type="text" name="Digite seu Endereco" class="form-control azul" placeholder="endereco" required="required" id="endereco">
+                    <input type="text" name="Digite seu Endereco" class="form-control azul" placeholder="Endereco" required="required" id="endereco">
                   </div>
-                 <button type="button" id="submitMap">Procurar Localização  <i class="fa fa-check" aria-hidden="true"></i></button>
+                 <button type="button" id="submitMap">Cadastrar Localização  <i class="fa fa-check" aria-hidden="true"></i></button>
                 </form>
               </div>
             </div>
