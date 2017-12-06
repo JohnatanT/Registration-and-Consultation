@@ -16,6 +16,17 @@ $contato = new Contato($mysqli,$user);
 		throw new Exception("Nome muito grande, tente abreviar.");
 	}
 
+
+	/* Cargo */
+	$cargo = $_POST['select'];
+	if(empty($cargo)){//Verifica de está vázio
+		throw new Exception("Cargo Vazio");
+	}elseif (strlen($cargo) > 100) {//Verificação do tamanho para evitar Spans
+		throw new Exception("Cargo muito grande, tente abreviar.");
+	}
+
+
+
 	/* E-mail */
 	$email = $_POST['email'];
 	$email = filter_var($email, FILTER_SANITIZE_EMAIL);
@@ -47,7 +58,7 @@ if($lin > 0){//Se existir um registro será enviando o valor false ao arquivo JS
 	$lista_retorna[] = $retorna1;
 	echo json_encode($lista_retorna);
 }else{//Se não existir um registro será feito o cadastro
-	$ret = $contato->insert_log($nome,$email,$codificada);
+	$ret = $contato->insert_log($nome,$email,$codificada,$cargo);
 	echo json_encode($ret);
 }
 

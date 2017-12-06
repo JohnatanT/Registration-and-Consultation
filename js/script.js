@@ -176,8 +176,9 @@ $("#cadastro_login").click(function(){
   var email = document.getElementById('email_cad').value;
   var senha = document.getElementById('senha_cad').value;
   var senha2 = document.getElementById('senha_cad2').value;
+  var select = document.getElementById('select').value;
   if(senha == senha2){
-    cadastrar(nome,email,senha)
+    cadastrar(nome,email,senha,select)
   }else{
    $('#alert_pass').fadeIn();
   $('#alert_pass').css("z-index", "9999999");
@@ -186,12 +187,12 @@ $("#cadastro_login").click(function(){
   
 });
 //Função que envia os dados 
-function cadastrar(_nome,_email,_senha){
+function cadastrar(_nome,_email,_senha,_select){
    $.ajax({
       type: "POST",//Tipo de envio/busca
       url: 'cadastro.php',//Arquivo que irá buscar
       dataType: 'json',
-      data:{'nome': _nome,'email': _email,'senha': _senha},//Passando a variavel nome para o parametro acao que será recebido no PHP
+      data:{'nome': _nome,'email': _email,'senha': _senha, 'select': _select},//Passando a variavel nome para o parametro acao que será recebido no PHP
       success: function (data) {
       //Mensagem se já houver e-mail Cadastrado
         if(data[0] == false){
@@ -248,4 +249,88 @@ function estatistica(numero_aumento,numero_neutro,numero_baixo,numero_critico){
 
 
 }
+//Cadastro de Cargo
+$("#submitCargo").click(function(){
+  //Recebendo valores
+  var cargo = document.getElementById('cargoNome').value;
+  cargo_cad(cargo)
+});
+
+//Função que cadastra o cargo
+function cargo_cad(cargo){
+   $.ajax({
+      type: "POST",//Tipo de envio/busca
+      url: 'cargo.php',//Arquivo que irá buscar
+      dataType: 'json',
+      data:{'cargo': cargo},//Passando a variavel nome para o parametro acao que será recebido no PHP
+      success: function (data) {
+      alert('Cargo Cadastrado com Sucesso');
+      },
+      error: function (xhr, ajaxOptions, thrownError) {//Caso aconteça erro
+         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
+   });
+}
+
+//Função que mostra os cargos no Select durante o cadastro
+function list(){
+  $('#select').empty();
+   $.ajax({
+      type: "POST",//Tipo de envio/busca
+      url: 'select.php',//Arquivo que irá buscar
+      dataType: 'json',
+      success: function (data) {
+      for(var i=0;data.length>i;i++){
+          //Adicionando registros retornados no Select
+          $('#select').append('<option value="'+data[i].cargo+'"> '+data[i].cargo+' </option>');
+        }
+      },
+      error: function (xhr, ajaxOptions, thrownError) {//Caso aconteça erro
+         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
+   });
+}
+
+/* API Google Maps */
+ 
+  var lat = null;
+  var lng = null;
+
+$("#submitMap").click(function(){ // no click do botao recebe o endereço
+
+  var enderecos = document.getElementById('endereco').value;
+  //Envia o endereço para a função
+  endereco(enderecos)
+});
+
+function endereco(enderecos){
+    $.ajax({
+      type: "POST",//Tipo de envio/busca
+      url: 'coord.php',//Arquivo que irá buscar
+      dataType: 'json',
+      data:{'endereco': enderecos},//Passando a variavel nome para o parametro acao que será recebido no PHP
+      success: function (data) {
+        lat = data.lat;
+        lng = data.lng;
+        initMap(lat,lng)//Passando as coordenadas para a função do Google Maps
+      },
+      error: function (xhr, ajaxOptions, thrownError) {//Caso aconteça erro
+         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
+   });
+}
+
+function initMap(lat,lng) {
+  var uluru = {lat: lat, lng: lng};
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 15,
+    center: uluru
+  });
+  var marker = new google.maps.Marker({
+    position: uluru,
+    map: map,
+    icon: 'img/if_Location_728975.png'
+  });
+}
+
 

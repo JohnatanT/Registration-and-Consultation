@@ -1,4 +1,6 @@
-<?php require_once 'header.php' ?>
+<?php 
+session_start();
+require_once 'header.php' ?>
     
 <!-- Login -->
 <div class="row">
@@ -14,7 +16,7 @@
           <input type="password" name="pass_login" required="required" class="form-control" placeholder="Senha" id="senha_login">
         </div>
         <input type="button" id="submit_login" class="btn btn-green" value="Entrar">
-        <button type="button" id="cad" class="btn btn-green" data-toggle="modal" data-target="#modalCad">Cadastrar</button>  
+        <button type="button" id="cad" class="btn btn-green" data-toggle="modal" data-target="#modalCad" onclick="list()">Cadastrar</button>  
       </form>
     </div>
   </div>
@@ -45,6 +47,7 @@
                    <div class="col-md-12">
                     <input type="password" name="password2" class="form-control azul" placeholder="Digite novamente a Senha" id="senha_cad2" required>
                   </div>
+                  <select id="select"></select>
                   <button type="button" id="cadastro_login">Cadastrar <i class="fa fa-check" aria-hidden="true"></i></button>
                 </form>
               </div>

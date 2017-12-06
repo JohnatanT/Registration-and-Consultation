@@ -1,4 +1,5 @@
 Banco de Dados: cadastro
 tabelas: 
-informacoes(id,name,email,telefone)
-logar(id,nome,email,senha)
+1.informacoes(id,name,email,telefone)
+2.logar(id,nome,email,senha)
+3.cargo(id,cargo)

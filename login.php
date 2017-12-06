@@ -34,6 +34,7 @@ try {
 
 	$ret = $contato->verifica($email,$senha);
 
+	
 	foreach ($ret as $value) {
 		if($email == $value['email'] && $senha == $value['senha']){
 			echo json_encode($ret);
@@ -41,6 +42,7 @@ try {
 			$_SESSION["nome_usuario"] = $value['nome'];
 			$_SESSION["email_usuario"] = $value['email'];
 			$_SESSION["senha_user"]= $value["senha"];
+			$_SESSION["cargo"]= $value["cargo"]; 
 		}else{
 			$retorna1 = false;
 			$lista_retorna = array();

@@ -2,12 +2,9 @@
   session_start();
   require_once 'header.php';
   //Caso esteja logado e seja Administrador
-  if(isset($_SESSION["nome_usuario"]) && isset($_SESSION["senha_user"])){
-  	$user = $_SESSION["nome_usuario"];
-  	$senha = $_SESSION["senha_user"];
-  	
-  	$senha_comp = sha1("admin");
-  	if($user == "admin" && $senha == $senha_comp){
+  if(isset($_SESSION["cargo"])){
+  	$cargo = $_SESSION["cargo"];
+  	if($cargo == "Administrador"){
  ?>
  	<!-- Conteúdo -->
 

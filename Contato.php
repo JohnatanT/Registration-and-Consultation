@@ -1,5 +1,4 @@
 <?php
-
 require_once 'User.php';
 
 
@@ -78,19 +77,21 @@ class Contato{
 	}
 
 	//Cadastro de Dados para Login
-	public function insert_log($nome,$email,$senha){
+	public function insert_log($nome,$email,$senha,$cargo){
 		$stmt = $this->db->stmt_init();
-		$stmt->prepare("INSERT INTO logar(nome,email,senha) VALUES(?,?,?)");
+		$stmt->prepare("INSERT INTO logar(nome,email,senha,cargo) VALUES(?,?,?,?)");
 
 		$this->user->setNome($nome);
 		$this->user->setEmail($email);
 		$this->user->setSenha($senha);
+		$this->user->setCargo($cargo);
 
 		$nome =  $this->user->getNome();
 		$email =  $this->user->getEmail();
 		$senha =  $this->user->getSenha();
+		$cargo =  $this->user->getCargo();
 
-		$stmt->bind_param("sss",$nome,$email,$senha);
+		$stmt->bind_param("ssss",$nome,$email,$senha,$cargo);
 		$stmt->execute();
     	return true;
 	}
@@ -106,10 +107,10 @@ class Contato{
 		$stmt->bind_param("s",$email);
 		$stmt->execute();
 
-		$stmt->bind_result($id,$name,$email,$senha);
+		$stmt->bind_result($id,$name,$email,$senha,$cargo);
 		$arr =  array();
 		while ($stmt->fetch()) {//Recebendo todos os valores atraves de um array
-        	$arr[] = array("id" => $id,"nome" => $name,"email" => $email, "senha" => $senha);
+        	$arr[] = array("id" => $id,"nome" => $name,"email" => $email, "senha" => $senha, "cargo" => $cargo);
         	//Criando um array associativo
     	}
     	return $arr;
@@ -131,6 +132,31 @@ class Contato{
 		return $arr;
 	}
 
+	//Cadastro do Cargo
+	public function cadastro_cargo($cargo){
+		$stmt = $this->db->stmt_init();
+		$stmt->prepare("INSERT INTO cargo(cargo) VALUES (?)");
 
+		$this->user->setCargo($cargo);
+		$cargo =  $this->user->getCargo();
 
+		$stmt->bind_param("s",$cargo);
+		$stmt->execute();
+	}
+
+	//Retorna os cargos
+	public function retCargos(){
+		$stmt = $this->db->stmt_init();
+		$stmt->prepare("SELECT * FROM cargo");
+		$stmt->execute();
+		$stmt->bind_result($id,$cargo);
+
+		$arr =  array();
+		while ($stmt->fetch()) {//Recebendo todos os valores atraves de um array
+        	$arr[] = array("id" => $id, "cargo" => $cargo);
+        	//Criando um array associativo
+    	}
+    	//Retonando esse array
+    	return $arr;
+	}
 }

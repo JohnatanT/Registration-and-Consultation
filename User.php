@@ -8,6 +8,7 @@ class User{
 	private $email;
 	private $telefone;
 	private $senha;
+	private $cargo;
 
 	//Tabela
 	public function getTabela(){
@@ -46,13 +47,20 @@ class User{
 		$this->senha = $senha;
 	}
 
-
 	//Telefone
 	public function getTelefone(){
 		return $this->telefone;
 	}
 	public function setTelefone($telefone){
 		$this->telefone = $telefone;
+	}
+
+	//Cargo
+	public function getCargo(){
+		return $this->cargo;
+	}
+	public function setCargo($cargo){
+		$this->cargo = $cargo;
 	}
 
 }
