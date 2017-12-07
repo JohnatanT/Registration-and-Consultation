@@ -277,17 +277,19 @@
   padding-top: 30px;
 }
 
-/* Mapa */
 
-.info-mapa h2{
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 40px;
-    text-align: center;
-    margin-top: 40px;
+/* MAPA */
+#info-map h2{
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
+  margin-top: 40px;
+  text-transform: uppercase;
+  color: #e62626;
 }
-.info-mapa img{
-  margin: 0 auto; 
+
+#info-map img{
+  margin: 0 auto;
   margin-bottom: 40px;
 }
 

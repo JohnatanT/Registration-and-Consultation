@@ -34,12 +34,25 @@ class Cad_coord{
 		$endereco =  $this->user->getEndereco();
 
 
-
 		$stmt->bind_param("sss",$lat,$lng,$endereco);
 		$stmt->execute();
 	}
 
+	//Retornar as coordenadas 
+	public function retorno(){
+		$stmt = $this->db->stmt_init();
+		$stmt->prepare("SELECT * FROM mapa");
+		$stmt->execute();
+		$stmt->bind_result($id,$lat,$lng,$endereco);
 
+		$arr =  array();
+		while ($stmt->fetch()){//Recebendo todos os valores atraves de um array
+        	$arr[] = array("id" => $id, "lat" => $lat, "lng" => $lng,"endereco" => $endereco);
+        	//Criando um array associativo
+    	}
+    	//Retonando esse array
+    	return $arr;
+	}
 
 
 }

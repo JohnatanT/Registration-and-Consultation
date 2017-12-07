@@ -310,9 +310,8 @@ function endereco(enderecos){
       dataType: 'json',
       data:{'endereco': enderecos},//Passando a variavel nome para o parametro acao que será recebido no PHP
       success: function (data) {
-        lat = data.lat;
-        lng = data.lng;
-        initMap(lat,lng)//Passando as coordenadas para a função do Google Maps
+        alert('Endereço Cadastrado com Sucesso');
+        window.location.href = "painel.php";
       },
       error: function (xhr, ajaxOptions, thrownError) {//Caso aconteça erro
          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -320,17 +319,56 @@ function endereco(enderecos){
    });
 }
 
-function initMap(lat,lng) {
-  var uluru = {lat: lat, lng: lng};
+//Array usado para guardar as coornedadas
+var array = [];
+
+//Ao carregar a página chama a função de Busca das Coordenadas
+$(document).ready(function(){
+  buscaPontos()
+});
+//Funçãoque busca as coordenadas
+function buscaPontos(){
+  //$('#').empty();
+  $.ajax({
+    type: "POST",
+    url: "pontos.php",
+    dataType: "json",
+    success: function (data){
+        for(var i=0;data.length>i;i++){
+          //Adicionando registros retornados
+          array[i] = {
+              "id": data[i].id,
+              "latitude": data[i].lat,
+              "longitude": data[i].lng,
+              "endereco": data[i].endereco
+            }; 
+        }
+        initMap(array)//Passando array com as coordenadas para a função
+    },
+    error: function (xhr, ajaxOptions, thrownError){
+      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    } 
+  });
+}
+//Função que carrega o Mapa
+function initMap(array){
+  var uluru = {lat: -3.7319, lng: -38.5267};
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 15,
+    zoom: 4,
     center: uluru
   });
-  var marker = new google.maps.Marker({
-    position: uluru,
+  //Adicionando os marcadores no Mapa
+  for(var i=0;array.length>i;i++){
+  marker = new google.maps.Marker({
+    position: new google.maps.LatLng(array[i].latitude,array[i].longitude),
+    title: array[i].endereco,
     map: map,
     icon: 'img/if_Location_728975.png'
   });
+   }
+    
+      
 }
+
 
 

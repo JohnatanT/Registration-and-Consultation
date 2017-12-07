@@ -8,7 +8,7 @@
  ?>
     <div class="row" id="painel">
       <div class="jumbotron">
-        <h1>Bem vindo <?php echo $_SESSION["nome_usuario"]; ?> <i class="fa fa-user-circle-o" aria-hidden="true"></i></h1>
+        <h1>Bem Vindo <?php echo $_SESSION["nome_usuario"]; ?> <i class="fa fa-user-circle-o" aria-hidden="true"></i></h1>
         <p><i class="fa fa-address-card-o" aria-hidden="true"></i> Caso deseje fazer o cadastro de algum usuário clique no botão logo abaixo para faze-lo.<br>
         <i class="fa fa-hourglass-end" aria-hidden="true"></i> Se deseja apenas fazer uma consulta mais abaixo há um campo em que você pode faze-lo.</p>
         <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
@@ -159,7 +159,7 @@
       $cargo = $_SESSION["cargo"];
       if($cargo == "Administrador"){
     ?>
-    <a href="#" id="cargo" data-toggle="modal" data-target="#myModalCargo">Cargos <i class="fa fa-id-card-o" aria-hidden="true"></i></a>
+    <a href="#" id="cargo" data-toggle="modal" data-target="#myModalCargo">Cargos</a>
     <?php 
       }
     ?>
@@ -199,14 +199,14 @@
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
               <h4 class="modal-title" id="myMap">
-                Cadastro de Coordenadas
+                Cadastro de Cargos
               </h4>
             </div>
             <div class="modal-body">
               <div class="formulario">
                 <form name="contato" action="" method="POST">
                   <div class="col-md-12">
-                    <input type="text" name="Digite seu Endereco" class="form-control azul" placeholder="Endereco" required="required" id="endereco">
+                    <input type="text" name="Digite seu Endereco" class="form-control azul" placeholder="Endereço" required="required" id="endereco">
                   </div>
                  <button type="button" id="submitMap">Cadastrar Localização  <i class="fa fa-check" aria-hidden="true"></i></button>
                 </form>
@@ -228,11 +228,10 @@
     </style>
 
       <div class="row">
-        <div class="info-mapa">
-          <h2>Mapa</h2>
+        <div id="info-map">
+          <h2>Pontos Cadastrados</h2>
           <img src="img/maps.png" class="img-responsive">
         </div>
-        
         <div id="map"></div>
       </div>
 
