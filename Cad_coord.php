@@ -54,5 +54,29 @@ class Cad_coord{
     	return $arr;
 	}
 
+	public function listar($pesquisa){
+		$stmt = $this->db->stmt_init();
+		$likeVar = "%" . $pesquisa . "%";//Criando variavel para poder user o parametro LIKE
+		$stmt->prepare("SELECT * FROM mapa WHERE CONCAT_WS(' ', lat, lng, endereco) LIKE ?");
+		$stmt->bind_param("s",$likeVar);
+		$stmt->execute();
+		$stmt->bind_result($id,$lat,$lng,$endereco);
+		$arr = array();
+		while ($stmt->fetch()){
+			$arr[] = array("id" => $id, "lat" => $lat, "lng" => $lng, "endereco" => $endereco);
+			//Criando um array associativo
+		}
+		return $arr;
+		//Retornando esse array
+	}
+
+	public function deleteMapa($id){
+		$stmt = $this->db->stmt_init();
+		$stmt->prepare("DELETE FROM mapa WHERE id = ?");
+		$stmt->bind_param("i",$id);
+		$stmt->execute();
+	}
+
+
 
 }

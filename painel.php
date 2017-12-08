@@ -240,6 +240,69 @@
     </script>
 <!-- /map -->
 
+  <?php  
+      $cargo = $_SESSION["cargo"];
+      if($cargo == "Administrador"){
+    ?>
+
+<!-- Campo de Busca do Mapa-->
+      <div class="row" id="campo_buscaMapa">
+        <img src="img/icons8-search-50.png" class="img-responsive">
+        <h2>Pesquisar Mapa:</h2>
+        <div id="Pesquisar">
+          <h3>Busque pelo Endereço</h3>
+          <input type="text" name="txtnomeMapa" id="txtnomeMapa" placeholder="Pesquisar..." class="campo_pesquisa"> 
+          <input type="button" id="botaoMapa" name="btnPesquisarMap" value="Pesquisar" class="botao_pesquisa" data-toggle="tooltip" data-placement="bottom" title="Caso queira ver todos, apenas clique aqui com o campo em branco">
+        </div>
+      </div>
+
+  <!-- Resultado da Pesquisa do Mapa -->
+      <div class="row">
+        <div class="container">
+          <div class="resultado">
+            <h2>Informações das coordenadas: <i class="fa fa-lightbulb-o" aria-hidden="true"></i></h2>
+            <div id="resultado_mapa">
+              <table border="1" class="table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th>Endereço</th>
+                    <th>Excluir Dados</th>
+                  </tr>
+                </thead>
+                <tbody id="tabela_mapa">
+                </tbody>
+              </table>
+            </div>
+          </div><!-- resultado -->
+        </div>
+      </div>
+
+      <!-- Modal de Excluir Ddos do Mapa-->
+  <div class="modal fade" id="confirma_mapa" role="dialog">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Confirmar <i class="fa fa-trash" aria-hidden="true"> <i class="fa fa-question-circle-o" aria-hidden="true"></i></i></h4>
+        </div>
+        <div class="modal-body">
+          <p>Deseja Realmente deletar essa linha?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar <i class="fa fa-times" aria-hidden="true"></i></button>
+          <button type="button" class="btn btn-primary" id="conf_map">Excluir <i class="fa fa-trash" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <?php 
+      }
+    ?>
+
   <?php 
     }else{
       header("Location:index.php"); //Se não estiver logado redireciona para a página de Login

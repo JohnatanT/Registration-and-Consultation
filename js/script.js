@@ -350,6 +350,8 @@ function buscaPontos(){
     } 
   });
 }
+
+var markers = [];
 //Função que carrega o Mapa
 function initMap(array){
   var uluru = {lat: -3.7319, lng: -38.5267};
@@ -365,10 +367,62 @@ function initMap(array){
     map: map,
     icon: 'img/if_Location_728975.png'
   });
+   markers.push(marker);
    }
-    
-      
+    //Agrupamento de Pontos no Mapa
+    var markerCluster = new MarkerClusterer(map, markers,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});    
+}
+$('#botaoMapa').click(function(){
+    var pesquisa = document.getElementById('txtnomeMapa').value;
+    info_mapa(pesquisa)
+});
+
+
+//var lista_mapa = [];
+function info_mapa(pesquisa){
+  $('#tabela_mapa').empty();
+  $.ajax({
+    type: "POST",
+    url: "infoMapa.php",
+    dataType: "json",
+    data:{'pesquisa': pesquisa},
+    success: function (data){
+        for(var i = 0;data.length > i; i++){
+          $('#tabela_mapa').append('<tr data-id="'+data[i].id+'"><td>'+data[i].id+'</td><td>'+data[i].lat+'</td><td>'+data[i].lng+'</td><td>'+data[i].endereco+'</td><td><button type="button" data-toggle="modal" data-target="#confirma_mapa" class="btn btn-danger excluirMapa" value="'+data[i].id+'">Excluir <i class="fa fa-times" aria-hidden="true"></i></button></td></tr>');
+          //lista_mapa[data[i].id] = {id: data[i].id , lat : data[i].lat, lng : data[i].lng, endereco : data[i].endereco};
+        }
+        $(".excluirMapa").click(function(){ 
+          var valor = $(this).val();
+          $("#conf_map").click(function(){//Confirmar no Modal
+            $('#tabela_mapa tr[data-id=' + valor + ']').remove();//Excluindo linha da tabela HTML
+            excluir_mapa(valor)//Passando o Id da linha para a função Excluir
+          });
+        }); 
+       
+    },
+    error: function (xhr, ajaxOptions, thrownError){
+      alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+    } 
+  });
 }
 
-
-
+//Excluir Dados do Mapa
+function excluir_mapa(id){
+   $.ajax({
+      type: "POST",//Tipo de envio/busca
+      url: 'excluirMapa.php',//Arquivo que irá buscar
+      dataType: 'json',
+      data:{'id': id},//Passando a variavel id para o parametro acao que será recebido no PHP
+      success: function (data) {
+        // resposta do php
+        $('.modal').modal('hide');//Esconde a Modal
+        //Aparece o Alert
+        $('#alert_ex').fadeIn();
+        $('#alert_ex').css("z-index", "9999999");
+        setTimeout('$("#alert_ex").fadeOut(100)', 2000)//Alert Some depois de um tempo
+      },
+      error: function (xhr, ajaxOptions, thrownError) {//Caso aconteça erro
+         alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+      }
+   });
+}
