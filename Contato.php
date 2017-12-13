@@ -159,4 +159,6 @@ class Contato{
     	//Retonando esse array
     	return $arr;
 	}
+	
+
 }

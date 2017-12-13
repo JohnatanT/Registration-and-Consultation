@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 //Classes para manipular o Banco de Dados
 require_once 'Contato.php';

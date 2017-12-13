@@ -6,6 +6,15 @@
   if(isset($_SESSION["nome_usuario"])){
 
  ?>
+
+  <!-- Menu -->
+  <div class="logout">
+    <a href="logout.php">Sair <i class="fa fa-power-off" aria-hidden="true"></i></a>
+    <a href="admin.php">Estatisticas <i class="fa fa-bar-chart" aria-hidden="true"></i></a>
+    <a href="#" id="_maps" data-toggle="modal" data-target="#myModalMap">Mapa <i class="fa fa-globe" aria-hidden="true"></i></a>
+    <a href="#" id="cargo" data-toggle="modal" data-target="#myModalCargo">Cargos</a>
+    <a href="#" id="pdf" data-toggle="modal" data-target="#myModalPdf">Relatorio <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+  </div>
     <div class="row" id="painel">
       <div class="jumbotron">
         <h1>Bem Vindo <?php echo $_SESSION["nome_usuario"]; ?> <i class="fa fa-user-circle-o" aria-hidden="true"></i></h1>
@@ -16,7 +25,6 @@
         </button>
       </div>
     </div>
-
     <!-- Modal Cadastro-->
       <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
@@ -49,8 +57,7 @@
           </div>
         </div>
       </div>
-
-       <!-- Modal Update-->
+      <!-- Modal Update-->
       <div class="modal fade" id="myModalUp" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -82,7 +89,6 @@
           </div>
         </div>
       </div>
-
       <!-- Alerta de Sucesso no Cadastro -->
       <div class="alert alert-success alert-dismissable fade in" id="alert">
         <strong>Successo!</strong> Cadastro realizado com exito <i class="fa fa-sign-in" aria-hidden="true"></i>.
@@ -95,7 +101,6 @@
       <div class="alert alert-success alert-dismissable fade in" id="alert_up">
         <strong>Successo!</strong> Update realizado com exito <i class="fa fa-sign-in" aria-hidden="true"></i>.
       </div>
-
       <!-- Campo de Busca -->
       <div class="row" id="campo_busca">
         <img src="img/icons8-search-50.png" class="img-responsive">
@@ -130,42 +135,25 @@
           </div><!-- resultado -->
         </div>
       </div>
-
-  <!-- Modal de Excluir-->
-  <div class="modal fade" id="confirm" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Confirmar <i class="fa fa-trash" aria-hidden="true"> <i class="fa fa-question-circle-o" aria-hidden="true"></i></i></h4>
-        </div>
-        <div class="modal-body">
-          <p>Deseja Realmente deletar essa linha?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar <i class="fa fa-times" aria-hidden="true"></i></button>
-          <button type="button" class="btn btn-primary" id="conf">Excluir <i class="fa fa-trash" aria-hidden="true"></i></button>
+      <!-- Modal de Excluir-->
+      <div class="modal fade" id="confirm" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Confirmar <i class="fa fa-trash" aria-hidden="true"> <i class="fa fa-question-circle-o" aria-hidden="true"></i></i></h4>
+            </div>
+            <div class="modal-body">
+              <p>Deseja Realmente deletar essa linha?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar <i class="fa fa-times" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-primary" id="conf">Excluir <i class="fa fa-trash" aria-hidden="true"></i></button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <!-- Logout -->
-  <div class="logout">
-    <a href="logout.php">Sair <i class="fa fa-power-off" aria-hidden="true"></i></a>
-    <a href="admin.php">Estatisticas <i class="fa fa-bar-chart" aria-hidden="true"></i></a>
-    <a href="#" id="_maps" data-toggle="modal" data-target="#myModalMap">Mapa <i class="fa fa-globe" aria-hidden="true"></i></a>
-    <?php  
-      $cargo = $_SESSION["cargo"];
-      if($cargo == "Administrador"){
-    ?>
-    <a href="#" id="cargo" data-toggle="modal" data-target="#myModalCargo">Cargos</a>
-    <?php 
-      }
-    ?>
-  </div>
-
-  <!-- Modal de Cargo-->
+      <!-- Modal de Cargo-->
       <div class="modal fade" id="myModalCargo" tabindex="-1" role="dialog" aria-labelledby="myCargo">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -191,7 +179,30 @@
           </div>
         </div>
       </div>
-
+      <!-- Modal de PDF-->
+      <div class="modal fade" id="myModalPdf" tabindex="-1" role="dialog" aria-labelledby="myPdf">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myPdf">
+                Relatório
+              </h4>
+            </div>
+            <div class="modal-body">
+              <div class="formulario">
+                <form name="pdf" action="Pdf.php" method="POST" id="pdf">
+                  <textarea class="col-md-12" name="texto" rows="10"></textarea>
+                 <button type="submit" target="_blank" id="gerarPdf">Gerar PDF <i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                </form>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar <i class="fa fa-times" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Modal de Endereço-->
       <div class="modal fade" id="myModalMap" tabindex="-1" role="dialog" aria-labelledby="myMap">
         <div class="modal-dialog" role="document">
@@ -218,14 +229,13 @@
           </div>
         </div>
       </div>
-
-<!-- Mapa -->
-    <style>
-      #map {
-        height: 400px;
-        width: 100%;
-       }
-    </style>
+      <!-- Mapa -->
+      <style>
+        #map {
+          height: 400px;
+          width: 100%;
+         }
+      </style>
 
       <div class="row">
         <div id="info-map">
@@ -235,17 +245,20 @@
         <div id="map"></div>
       </div>
 
-      <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAk9l6FzKbzLAI4pnB8o6_gxEIlUh-mDFs&callback=initMap">
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAk9l6FzKbzLAI4pnB8o6_gxEIlUh-mDFs&callback=initMap">
     </script>
-<!-- /map -->
+    <!-- /map -->
 
-  <?php  
-      $cargo = $_SESSION["cargo"];
-      if($cargo == "Administrador"){
-    ?>
-
-<!-- Campo de Busca do Mapa-->
+      <!-- Mostrar talitude e Longitude -->
+      <section class="info-marker">
+        <input type="text" id="current">
+      </section>
+      <?php  
+        $cargo = $_SESSION["cargo"];
+        if($cargo == "Administrador"){
+      ?>
+      <!-- Campo de Busca do Mapa-->
       <div class="row" id="campo_buscaMapa">
         <img src="img/icons8-search-50.png" class="img-responsive">
         <h2>Pesquisar Mapa:</h2>
@@ -255,8 +268,7 @@
           <input type="button" id="botaoMapa" name="btnPesquisarMap" value="Pesquisar" class="botao_pesquisa" data-toggle="tooltip" data-placement="bottom" title="Caso queira ver todos, apenas clique aqui com o campo em branco">
         </div>
       </div>
-
-  <!-- Resultado da Pesquisa do Mapa -->
+      <!-- Resultado da Pesquisa do Mapa -->
       <div class="row">
         <div class="container">
           <div class="resultado">
@@ -279,34 +291,30 @@
           </div><!-- resultado -->
         </div>
       </div>
-
       <!-- Modal de Excluir Ddos do Mapa-->
-  <div class="modal fade" id="confirma_mapa" role="dialog">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">Confirmar <i class="fa fa-trash" aria-hidden="true"> <i class="fa fa-question-circle-o" aria-hidden="true"></i></i></h4>
-        </div>
-        <div class="modal-body">
-          <p>Deseja Realmente deletar essa linha?</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar <i class="fa fa-times" aria-hidden="true"></i></button>
-          <button type="button" class="btn btn-primary" id="conf_map">Excluir <i class="fa fa-trash" aria-hidden="true"></i></button>
+      <div class="modal fade" id="confirma_mapa" role="dialog">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Confirmar <i class="fa fa-trash" aria-hidden="true"> <i class="fa fa-question-circle-o" aria-hidden="true"></i></i></h4>
+            </div>
+            <div class="modal-body">
+              <p>Deseja Realmente deletar essa linha?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar <i class="fa fa-times" aria-hidden="true"></i></button>
+              <button type="button" class="btn btn-primary" id="conf_map">Excluir <i class="fa fa-trash" aria-hidden="true"></i></button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-
     <?php 
       }
     ?>
-
-  <?php 
-    }else{
-      header("Location:index.php"); //Se não estiver logado redireciona para a página de Login
-    }
-
+    <?php 
+      }else{
+        header("Location:index.php"); //Se não estiver logado redireciona para a página de Login
+      }
     require_once 'footer.php' 
   ?>

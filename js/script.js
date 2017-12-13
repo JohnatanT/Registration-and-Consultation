@@ -8,9 +8,11 @@ $(document).ready(function(){
   setTimeout('$("#preload").fadeOut(100)', 2000);
 });
 
-var valorUp = null; //Variavel Global usada na linha 76
+var valorUp = null; //Variavel Global que recupera o valor da linha a ser editada
 
-var lista = [];//Array Global usado na linha 62
+var lista = [];//Array Global usado para guardar os valores e editar
+
+var valor = null;//Valor da linha a ser deletada
 
 //Cadastro de dados
 $("#submit").click(function(){
@@ -20,6 +22,7 @@ $("#submit").click(function(){
   var telefone = document.getElementById('telefone').value;
   enviar(nome,email,telefone)
 });
+
 //Função que envia os dados 
 function enviar(_nome,_email,_telefone){
    $.ajax({
@@ -39,11 +42,13 @@ function enviar(_nome,_email,_telefone){
       }
    });
 }
+
 //Consulta de dados
 $("#botao").click(function(){ // no click do botao que abre a modal faça
 	var textoDigitado = document.getElementById('txtnome').value;
-            busca(textoDigitado)
-     });
+  busca(textoDigitado)
+});
+
 //Busca de dados
 function busca(nome){
   $('#tabela').empty(); //Limpando a tabela sempre que pesquisar
@@ -63,12 +68,18 @@ function busca(nome){
         }
         //Excluir a tabela
         $(".excluir").click(function(){ 
-          var valor = $(this).val();
+          valor = $(this).val();
           $("#conf").click(function(){//Confirmar no Modal
             $('#tabela tr[data-id=' + valor + ']').remove();//Excluindo linha da tabela HTML
             excluir(valor);//Passando o Id da linha para a função Excluir
           });
         }); 
+         //Excluir a tabela
+        $(".pdf").click(function(){ 
+          valor = $(this).val();
+          pdf(valor);//Passando o Id da linha para a função Excluir
+        }); 
+
         //Editar tabela
         $(".editar").click(function(){ 
           valorUp = $(this).val();//Recupera o ID
@@ -116,6 +127,9 @@ function excluir(id){
    });
 }
 
+//PDF dos Dados
+
+
 //Update dos dados
 function update(_id,_nome,_email,_telefone){
    $.ajax({
@@ -145,12 +159,13 @@ $("#submit_login").click(function(){
   logar(email,senha)
 });
 
+//Função de Login
 function logar(email,senha){
    $.ajax({
       type: "POST",//Tipo de envio/busca
       url: 'login.php',//Arquivo que irá buscar
       dataType: 'json',
-      data:{'email': email,'senha': senha},//Passando a variavel nome para o parametro acao que será recebido no PHP
+      data:{'email': email,'senha': senha},//Passando a variavel nome para o parametro que será recebido no PHP
       success: function (data) {// resposta do php com sucesso
           if(data[0] == false){
             $('.modal').modal('hide');//Esconde a Modal
@@ -164,7 +179,7 @@ function logar(email,senha){
       error: function (data) {//Caso aconteça erro
         $('#alert_log').fadeIn();
         $('#alert_log').css("z-index", "9999999");
-        ssetTimeout('$("#alert_log").fadeOut(100)', 2000)//Alert Some depois de um tempo
+        setTimeout('$("#alert_log").fadeOut(100)', 2000)//Alert Some depois de um tempo
       }
    });
 }
@@ -177,15 +192,16 @@ $("#cadastro_login").click(function(){
   var senha = document.getElementById('senha_cad').value;
   var senha2 = document.getElementById('senha_cad2').value;
   var select = document.getElementById('select').value;
+  //Verificando se as senhas são iguais
   if(senha == senha2){
     cadastrar(nome,email,senha,select)
   }else{
-   $('#alert_pass').fadeIn();
-  $('#alert_pass').css("z-index", "9999999");
+    $('#alert_pass').fadeIn();
+    $('#alert_pass').css("z-index", "9999999");
     setTimeout('$("#alert_pass").fadeOut(100)', 2000)
   }
-  
 });
+
 //Função que envia os dados 
 function cadastrar(_nome,_email,_senha,_select){
    $.ajax({
@@ -209,7 +225,6 @@ function cadastrar(_nome,_email,_senha,_select){
           $('#alert_cad').css("z-index", "9999999");
           setTimeout('$("#alert_cad").fadeOut(100)', 2000)
         }
-
       },
       error: function (xhr, ajaxOptions, thrownError) {//Caso aconteça erro
          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -232,6 +247,7 @@ $("#submitEst").click(function(){ // no click do botao recebe os valores
 
 });
 
+//Função que recebe os valores e retorna a porcentagem
 function estatistica(numero_aumento,numero_neutro,numero_baixo,numero_critico){
     $.ajax({
       type: "POST",//Tipo de envio/busca
@@ -246,9 +262,8 @@ function estatistica(numero_aumento,numero_neutro,numero_baixo,numero_critico){
          alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
       }
    });
-
-
 }
+
 //Cadastro de Cargo
 $("#submitCargo").click(function(){
   //Recebendo valores
@@ -292,17 +307,16 @@ function list(){
 }
 
 /* API Google Maps */
- 
   var lat = null;
   var lng = null;
 
 $("#submitMap").click(function(){ // no click do botao recebe o endereço
-
   var enderecos = document.getElementById('endereco').value;
   //Envia o endereço para a função
   endereco(enderecos)
 });
 
+//Função que cadastro os endereços
 function endereco(enderecos){
     $.ajax({
       type: "POST",//Tipo de envio/busca
@@ -326,6 +340,7 @@ var array = [];
 $(document).ready(function(){
   buscaPontos()
 });
+
 //Funçãoque busca as coordenadas
 function buscaPontos(){
   //$('#').empty();
@@ -351,34 +366,47 @@ function buscaPontos(){
   });
 }
 
+//Array utilizado para agrupar os pontos próximos
 var markers = [];
+
 //Função que carrega o Mapa
 function initMap(array){
-  var uluru = {lat: -3.7319, lng: -38.5267};
+  var uluru = {lat: -3.781, lng: -38.559};
   var map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: uluru
+    zoom: 16,//Zoom do Mapa
+    center: uluru //Posição inicial quando o mapa carregar
   });
   //Adicionando os marcadores no Mapa
   for(var i=0;array.length>i;i++){
   marker = new google.maps.Marker({
     position: new google.maps.LatLng(array[i].latitude,array[i].longitude),
-    title: array[i].endereco,
+    draggable: true, //Habilitar arrastar o cursos
+    title: array[i].endereco, //Titulo que fica sobre o marcador
     map: map,
-    icon: 'img/if_Location_728975.png'
+    icon: 'img/if_Location_728975.png' //Imagem do marcador
   });
    markers.push(marker);
    }
     //Agrupamento de Pontos no Mapa
     var markerCluster = new MarkerClusterer(map, markers,{imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});    
+    
+    //Arrastar o marcador e pegar as coordenadas
+    google.maps.event.addListener(marker, 'dragend', function (evt) {
+      document.getElementById('current').value = 'Latitude: ' + evt.latLng.lat().toFixed(3) + ' Longitude: ' + evt.latLng.lng().toFixed(3) +' ';
+    });
+    //Enquanto estiver movendo o marcador
+    google.maps.event.addListener(marker, 'dragstart', function (evt) {
+      document.getElementById('current').value = 'Procurando...';
+    });
 }
+
+//Campo de Pesquisa do Endereço
 $('#botaoMapa').click(function(){
     var pesquisa = document.getElementById('txtnomeMapa').value;
     info_mapa(pesquisa)
 });
 
-
-//var lista_mapa = [];
+//Função que busca o endereço e mostra na tabela
 function info_mapa(pesquisa){
   $('#tabela_mapa').empty();
   $.ajax({
@@ -389,7 +417,6 @@ function info_mapa(pesquisa){
     success: function (data){
         for(var i = 0;data.length > i; i++){
           $('#tabela_mapa').append('<tr data-id="'+data[i].id+'"><td>'+data[i].id+'</td><td>'+data[i].lat+'</td><td>'+data[i].lng+'</td><td>'+data[i].endereco+'</td><td><button type="button" data-toggle="modal" data-target="#confirma_mapa" class="btn btn-danger excluirMapa" value="'+data[i].id+'">Excluir <i class="fa fa-times" aria-hidden="true"></i></button></td></tr>');
-          //lista_mapa[data[i].id] = {id: data[i].id , lat : data[i].lat, lng : data[i].lng, endereco : data[i].endereco};
         }
         $(".excluirMapa").click(function(){ 
           var valor = $(this).val();
@@ -398,7 +425,6 @@ function info_mapa(pesquisa){
             excluir_mapa(valor)//Passando o Id da linha para a função Excluir
           });
         }); 
-       
     },
     error: function (xhr, ajaxOptions, thrownError){
       alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

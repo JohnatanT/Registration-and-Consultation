@@ -4,6 +4,7 @@ require_once 'Cad_coord.php';
 require_once 'conexao.php';
 require_once 'Coordenadas.php';
 
+
 try {
 
 	$user = new Coordenadas(); 
